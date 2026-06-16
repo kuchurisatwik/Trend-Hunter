@@ -29,7 +29,7 @@ pip install pandas ccxt tqdm
 **2. Run the Optimal Backtest**
 Runs the heavily optimized 2-Year backtest on our most robust "All-Weather" coins (FET, ALGO, APT, ETH).
 ```bash
-python run_final.py
+python -m scripts.run_final
 ```
 
 **3. View the Dashboard**
@@ -42,7 +42,7 @@ Open your browser to: `http://localhost:8080/dashboard/`
 **4. Run the Optimizer**
 Want to find new parameters for a different coin? Run the parallel hyperparameter optimizer:
 ```bash
-python run_optimizer.py
+python -m scripts.run_optimizer
 ```
 
 ---
