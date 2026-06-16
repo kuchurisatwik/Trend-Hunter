@@ -97,15 +97,15 @@ This automatically tests thousands of parameter combinations to find what works 
 
 ---
 
-## 📊 Backtest Results (2-Year, 15-Min Timeframe)
+## Backtest Results (2-Year, 15-Min Timeframe)
 
 These are the real results from running the strategy on historical data. No cherry-picking — every trade, win or loss, is counted.
 
 | Rank | Coin | Trades | Win Rate | Net Profit | Net Return | Profit Factor | Max Drawdown | Rating |
 |------|------|--------|----------|------------|------------|---------------|--------------|--------|
-| 👑 1st | `FET/USDT` | 219 | 50.2% | +$857.84 | **+85.8%** | 1.65 | 8.2% | Strong |
-| 🥈 2nd | `APT/USDT` | 210 | 45.7% | +$294.90 | **+29.5%** | 1.24 | 10.9% | Marginal |
-| 🥉 3rd | `ALGO/USDT` | 209 | 43.5% | +$169.95 | **+17.0%** | 1.16 | 18.8% | Marginal |
+| 1st | `FET/USDT` | 219 | 50.2% | +$857.84 | **+85.8%** | 1.65 | 8.2% | Strong |
+| 2nd | `APT/USDT` | 210 | 45.7% | +$294.90 | **+29.5%** | 1.24 | 10.9% | Marginal |
+| 3rd | `ALGO/USDT` | 209 | 43.5% | +$169.95 | **+17.0%** | 1.16 | 18.8% | Marginal |
 
 
 > **Profit Factor** — How much you earn for every $1 you lose. Above 1.0 = profitable. FET's 1.65 means for every $1 lost, the bot made $1.65 back.
@@ -114,7 +114,7 @@ These are the real results from running the strategy on historical data. No cher
 > 
 > **Rating** — A summary judgment: *Strong* means the edge is clear and consistent. *Marginal* means profitable, but worth watching closely.
 
-### 🏆 Top 3 Takeaways
+### Top 3 Takeaways
 
 **1. FET is the star.** Nearly doubling your money in 2 years on a fully automated strategy — with a coin that's mid-cap and liquid — is a strong result. The 50.2% win rate means it wins just slightly more than half its trades, but the exits are sized so well that winners are much bigger than losers.
 
@@ -128,7 +128,7 @@ These are the real results from running the strategy on historical data. No cher
 
 ## Want to Use This for Real Trading?
 
-> ⚠️ Right now, this is a **backtesting tool only** — it tests on past data, it doesn't trade real money yet.
+> Right now, this is a **backtesting tool only** — it tests on past data, it doesn't trade real money yet.
 
 To make it live, you'd need to:
 
