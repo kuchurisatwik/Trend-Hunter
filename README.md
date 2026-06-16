@@ -1,21 +1,39 @@
 # Trend-Hunter: Algorithmic Crypto Trading Engine
 
-An institutional-grade algorithmic trading framework designed to systematically capture momentum swings using WaveTrend, EMA200, and ADX, with advanced Chandelier Trailing Stops and partial Take-Profits.
+An institutional-grade algorithmic trading framework designed to systematically capture momentum swings on the 15-minute timeframe. It utilizes a combination of moving averages, momentum oscillators, and volume expansion to trigger sniper-like entries, followed by dynamic partial-exits to maximize alpha.
 
-## 🚀 The Journey: From Meme Coins to Universal Edge
+---
 
-We initially started this project attempting to trade high-volatility meme coins (PEPE, SHIB) on the 15-minute timeframe. However, after building a mathematically pure, infinite-precision backtesting engine, we uncovered the harsh reality of systematic trading:
+## 🧠 How the Strategy Works
 
-1. **The Meme Coin Mirage:** Decimal-rounding issues were artificially inflating backtest profits on micro-cap coins. Once precision was fixed, the math proved that meme coins are too choppy for this logic.
-2. **The Ablation Study:** We built a custom Ablation Engine (Versions A through E) to test 50 coins simultaneously across 1 full year. We discovered that adding Volume Expansion and deep WaveTrend pullbacks (Version D) drastically increased our Win Rate and Profit Factor.
-3. **The Universal Edge DNA:** We deployed a Parallel Grid-Search Hyperparameter Optimizer over 45 million candles. The math pinpointed the exact parameters to maximize alpha: `EMA200`, `WaveTrend(10)`, `ADX(15)`, Breakeven at `1.2R`, and Partial Take-Profit at `2.5R`.
-4. **The Goldilocks Assets:** A grueling 2-Year Stress Test revealed that Mid-cap AI and Layer-1 tokens (`FET`, `APT`) are the absolute perfect assets for this algorithm, while heavy mega-caps (`ETH`) are too slow.
+The strategy is built on the philosophy of "Trend Following on Pullbacks". It never buys the top of a rally; instead, it waits for the macro-trend to establish, waits for a micro-pullback, and then enters the exact moment momentum shifts back into the trend's direction.
 
-## ⚙️ Features
-- **Ablation Engine:** Toggle filters on/off to scientifically prove if an indicator actually works.
-- **Hyperparameter Optimizer:** 4-core parallel grid search to dynamically find the best indicator combinations.
-- **Advanced Dynamic Exits:** Risk 1% per trade. Moves to breakeven at 1.2R, secures 50% profit at 2.5R, and rides the runner using a 2.5x ATR Chandelier Trailing Stop.
-- **Beautiful HTML Dashboard:** Visualizes massive 50-coin multi-year equity curves using Chart.js.
+### 1. The Entry Conditions (Long Example)
+A Long trade is only triggered when **all 4 of these conditions** align simultaneously:
+
+1. **Macro Trend (EMA 200):** The current price must be above the 200-period Exponential Moving Average, AND the EMA itself must be sloping upwards (price > EMA200 > EMA200 5 bars ago).
+2. **Trend Strength (ADX > 15):** The Average Directional Index (ADX) must be above 15. This filters out sideways, choppy markets where trend-following strategies typically bleed capital.
+3. **Deep Pullback (WaveTrend):** The fast WaveTrend line (WT1) must have recently dropped into negative territory (< 0). This proves the asset just had a healthy pullback. 
+4. **Momentum Shift & Volume:** The fast WaveTrend line (WT1) must cross *above* the slow signal line (WT2), AND the current candle's volume must be strictly higher than the 50-period Volume Moving Average. This proves institutional volume is stepping in to buy the dip.
+
+*(Short trades are the exact inverse)*
+
+### 2. Dynamic Risk Management & Exits
+Once in a trade, the engine uses an aggressive scale-out mechanism to protect capital while letting winners run.
+
+- **Initial Stop Loss:** Placed at the recent Swing Low. Position sizing is calculated so exactly **1% of account equity** is risked.
+- **Breakeven (1.2R):** The moment the trade reaches 1.2x the initial risk in profit, the Stop Loss is immediately moved to the Entry Price. It is now a "risk-free" trade.
+- **Partial Take-Profit (2.5R):** Once the trade reaches 2.5x risk, the engine automatically closes **50% of the position**, securing locked-in profits.
+- **Chandelier Runner:** The remaining 50% (the "Runner") is left open with no hard Take-Profit. Instead, the Stop Loss trails behind the price using a **2.5x ATR Chandelier Stop**. If the coin goes on a massive 30% parabolic run, the runner stays alive for the entire ride until the trend finally breaks.
+
+---
+
+## ⚙️ Core Architecture
+- **`data/`**: CCXT integration for fetching historical OHLCV candles without API keys.
+- **`indicators/`**: Pure Pandas implementations of WaveTrend, ADX, ATR, and Volume MAs.
+- **`strategy/`**: The signal generator and position-sizing risk math.
+- **`backtest/`**: The state-machine engine that processes Breakevens, Partials, and Chandelier trails candle-by-candle.
+- **`scripts/`**: The executable runners for optimization, 50-coin massive backtests, and HTML dashboard generation.
 
 ---
 
@@ -27,7 +45,7 @@ pip install pandas ccxt tqdm
 ```
 
 **2. Run the Optimal Backtest**
-Runs the heavily optimized 2-Year backtest on our most robust "All-Weather" coins (FET, ALGO, APT, ETH).
+Runs the heavily optimized 2-Year backtest on our most robust "All-Weather" mid-cap coins (FET, ALGO, APT, ETH).
 ```bash
 python -m scripts.run_final
 ```
