@@ -1,0 +1,8 @@
+# ============================================
+# WaveTrend + EMA200 Crypto Strategy
+# Install with:  pip install -r requirements.txt
+# ============================================
+
+pandas>=2.0.0        # DataFrames for candle data
+numpy>=1.24.0        # Math operations
+ccxt>=4.0.0          # Free crypto exchange data (Binance)
